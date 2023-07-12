@@ -1,0 +1,15 @@
+.formStyle {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  width: 50%;
+}
+
+.customizedButton {
+  font-size: 18px;
+  width: 150px;
+  height: 40px;
+  margin-top: 10px;
+  background-color: #d35400;
+  border-radius: 5px;
+}
