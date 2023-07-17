@@ -32,6 +32,6 @@ export const login = async (req, res) => {
       }
     } else res.status(400).json({ message: "Invalid email" });
   } catch (err) {
-    res.status(400).json({ message: erreur });
+    res.status(400).json({ message: err });
   }
 };

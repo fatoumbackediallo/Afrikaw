@@ -1,37 +1,32 @@
 import React, { useState } from "react";
-import { TextField } from "@mui/material";
-import "../css/FormStyle.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../css/FormStyle.css";
+import { TextField } from "@mui/material";
+import axios from "axios";
 
-export default function Inscription() {
-  const [fullname, setFullname] = useState("");
+export default function ConnexionAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = { fullname, email, password };
+    const admin = { email, password };
     axios
-      .post("http://localhost:3100/connect/signup", user)
-      .then((res) => navigate("/connexion"))
+      .post("http://localhost:3100/connect/login", admin)
+      .then((res) => {
+        console.log("connecté");
+        localStorage.setItem("token", res.data.token);
+        setToken(res.data.token);
+        navigate("/connexionAdmin/board");
+      })
       .catch((err) => console.log("erreur"));
   };
 
   return (
     <form className="formStyle" onSubmit={handleSubmit}>
-      <TextField
-        id="outlined-required"
-        type="fullname"
-        label="Required"
-        placeholder="Nom complet"
-        value={fullname}
-        size="normal"
-        margin="normal"
-        onChange={(e) => setFullname(e.target.value)}
-      />
       <TextField
         id="outlined-required"
         type="email"
@@ -52,7 +47,7 @@ export default function Inscription() {
         margin="normal"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="customizedButton">S'inscrire</button>
+      <button className="customizedButton">Se connecter</button>
     </form>
   );
 }
